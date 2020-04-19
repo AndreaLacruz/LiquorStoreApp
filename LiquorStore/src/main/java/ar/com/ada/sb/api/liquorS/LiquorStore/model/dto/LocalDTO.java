@@ -26,9 +26,9 @@ public class LocalDTO implements Serializable {
     private List<ProductDTO> products;
 
     @JsonIgnoreProperties(value = "locals")
-    private Set<ClientDTO> clients;
+    private ClientDTO clients;
 
-    public LocalDTO(Long id, String name, String address, List<ProductDTO> products, Set<ClientDTO> clients) {
+    public LocalDTO(Long id, String name, String address, List<ProductDTO> products, ClientDTO clients) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -36,7 +36,7 @@ public class LocalDTO implements Serializable {
         this.clients = clients;
     }
 
-    public LocalDTO(String name, String address, List<ProductDTO> products, Set<ClientDTO> clients) {
+    public LocalDTO(String name, String address, List<ProductDTO> products, ClientDTO clients) {
         this.name = name;
         this.address = address;
         this.products = products;

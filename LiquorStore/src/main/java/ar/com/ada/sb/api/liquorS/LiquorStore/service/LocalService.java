@@ -87,19 +87,14 @@ public class LocalService implements Services<LocalDTO>{
         Local local = localOptional.get();
         Client clientAdding = clientOptional.get();
 
-        boolean hasClientInLocal = local.getClients().stream()
-                .anyMatch(client -> client.equals(clientAdding.getName()));
+        local.addClient(clientAdding);
+        Local localWithClient = localRepository.save(local);
+        localDTOWithClient = localCycleMapper.toDto(localWithClient, context);
 
-        if (!hasClientInLocal){
-            local.addClient(clientAdding);
-            Local localWithClient = localRepository.save(local);
-            localDTOWithClient = localCycleMapper.toDto(localWithClient, context);
-        } else {
-            ApiEntityError apiEntityError = new ApiEntityError(
+        ApiEntityError apiEntityError = new ApiEntityError(
                     "Client", "Already Exist", "The Client with this id: "
                     + clientId + " Already inside Local DataBase "
-            );
-        }
+        );
 
         return localDTOWithClient;
 
@@ -119,7 +114,7 @@ public class LocalService implements Services<LocalDTO>{
         Local local = localOptional.get();
         Product productToSet = productOptional.get();
 
-        local.setProducts(productToSet);
+        local.addProduct(productToSet);
         Local localWithProduct = localRepository.save(local);
         localDTOWithProduct = localCycleMapper.toDto(localWithProduct, context);
 

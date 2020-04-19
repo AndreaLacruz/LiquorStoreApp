@@ -22,10 +22,12 @@ public class Client {
     @Column(nullable = false, length = 10)
     private Integer dni;
 
-    @ManyToOne @JoinColumn(name = "Local_id", nullable = false)
+    @OneToMany(mappedBy = "client")
     private Set<Local> locals;
 
     public Client(Long id) {
         this.id = id;
     }
+
+
 }

@@ -1,13 +1,12 @@
 package ar.com.ada.sb.api.liquorS.LiquorStore.model.entity;
 
-import ar.com.ada.sb.api.liquorS.LiquorStore.model.dto.ClientDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -24,12 +23,11 @@ public class Local {
     @Column(nullable = false, length = 50)
     private String address;
 
-    @OneToMany(mappedBy = "locals")
+    @ManyToMany(mappedBy = "locals")
     private List<Product> products;
 
-
-    @OneToMany(mappedBy = "locals")
-    private Set<Client> clients;
+    @ManyToOne @JoinColumn (name = "client_id", nullable = false)
+    private Client client;
 
     public Local(Long id) {
         this.id = id;
@@ -41,9 +39,12 @@ public class Local {
     }
 
     public void addClient(Client client) {
-        this.clients.add(client);
+        this.client = client;
     }
 
-    public void setProducts(Product productToSet) {
+    public void addProduct(Product product) {
+        if (this.products==null)
+            this.products = new ArrayList<>();
+        this.products.add(product);
     }
 }

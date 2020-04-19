@@ -31,14 +31,14 @@ public class ClientService implements Services<ClientDTO> {
     public ClientDTO save(ClientDTO dto) {
         Client clientToSave = clientCycleMapper.toEntity(dto, context);
         Client clientSaved = clientRepository.save(clientToSave);
-        ClientDTO clientDTOSaved = clientCycleMapper.toDTO(clientSaved, context);
+        ClientDTO clientDTOSaved = clientCycleMapper.toDto(clientSaved, context);
         return clientDTOSaved;
     }
 
     @Override
     public List<ClientDTO> findAll() {
         List<Client> clientEntityList = clientRepository.findAll();
-        List<ClientDTO> clientDTOList = clientCycleMapper.toDTO(clientEntityList, context);
+        List<ClientDTO> clientDTOList = clientCycleMapper.toDto(clientEntityList, context);
         return clientDTOList;
     }
 
@@ -61,7 +61,7 @@ public class ClientService implements Services<ClientDTO> {
             clientDTOUpdated.setId(clientById.getId());
             Client clientToUpdate = clientCycleMapper.toEntity(clientDTOUpdated, context);
             Client clientUpdated = clientRepository.save(clientToUpdate);
-            clientDTOUpdated = clientCycleMapper.toDTO(clientUpdated, context);
+            clientDTOUpdated = clientCycleMapper.toDto(clientUpdated, context);
         } else {
             logicExceptionComponent.throwExceptionEntityNotFound("Client", id);
         } return clientDTOUpdated;
@@ -74,7 +74,7 @@ public class ClientService implements Services<ClientDTO> {
 
         if (byDNI.isPresent()){
             Client clientByDNI = byDNI.get();
-            clientDTO = clientCycleMapper.toDTO(clientByDNI, context);
+            clientDTO = clientCycleMapper.toDto(clientByDNI, context);
         } else {
             logicExceptionComponent.throwExceptionEntityNotFound("Client", id);
         } return clientDTO;

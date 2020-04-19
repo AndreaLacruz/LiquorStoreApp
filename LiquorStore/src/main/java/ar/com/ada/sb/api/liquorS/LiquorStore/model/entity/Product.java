@@ -25,8 +25,9 @@ public class Product {
     @Column(nullable = false, length = 25)
     private String brand;
 
-    @ManyToOne
-    @JoinColumn(name = "Local_id", nullable = false)
+    @ManyToMany
+    @JoinTable(name = "Product_has_Local", joinColumns = @JoinColumn(name = "Product_id"),
+            inverseJoinColumns = @JoinColumn(name = "Local_ id"))
     private Set<Local> locals;
 
     public Product(String name, Boolean alcoholicDrink, String brand) {
