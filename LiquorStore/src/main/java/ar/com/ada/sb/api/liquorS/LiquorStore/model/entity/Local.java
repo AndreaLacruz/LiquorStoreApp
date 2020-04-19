@@ -26,7 +26,7 @@ public class Local {
     @ManyToMany(mappedBy = "locals")
     private List<Product> products;
 
-    @ManyToOne @JoinColumn (name = "client_id", nullable = false)
+    @ManyToOne @JoinColumn (name = "Client_id", nullable = true)
     private Client client;
 
     public Local(Long id) {
